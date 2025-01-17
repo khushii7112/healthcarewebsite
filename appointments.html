@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Appointment </title>
+    <link rel="stylesheet" href="appointments.css">
+</head>
+<body>
+    <section id="appointments">
+        <h2 class="header">Appointments</h2>
+        <p>Book appointments with doctors from Manipal Hospital, Dwarka.</p>
+        <form id="appointment-form">
+            <label for="department">Select Department:</label>
+            <select id="department" required>
+                <option value="">Select Department</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Neurology">Neurology</option>
+            </select>
+
+            <label for="doctor">Select Doctor:</label>
+            <select id="doctor" required>
+                <option value="">Select Doctor</option>
+            </select>
+
+            <label for="appointment-time">Select Appointment Time:</label>
+            <input type="datetime-local" id="appointment-time" required>
+
+            <button class ="button" type="submit">Book Appointment</button>
+        </form>
+    </section>
+    <script>
+    // Doctor list categorized by department
+        const doctorsByDepartment = {
+            Cardiology: [
+                "Dr. Arjun Malhotra",
+                "Dr. Priya Kapoor",
+                "Dr. Sanjay Verma"
+            ],
+            Dermatology: [
+                "Dr. Ananya Sharma",
+                "Dr. Rohan Das"
+            ],
+            Orthopedics: [
+                "Dr. Vikram Singh",
+                "Dr. Meera Iyer"
+            ],
+            Pediatrics: [
+                "Dr. Swati Gupta",
+                "Dr. Manish Khurana"
+            ],
+            Neurology: [
+                "Dr. Shalini Rajan",
+                "Dr. Rajesh Tiwari"
+            ]
+        };
+
+        // Populate doctors based on selected department
+        document.getElementById('department').addEventListener('change', function() {
+            const department = this.value;
+            const doctorSelect = document.getElementById('doctor');
+            
+            // Clear current options
+            doctorSelect.innerHTML = '<option value="">Select Doctor</option>';
+
+            // Populate new options
+            if (department && doctorsByDepartment[department]) {
+                doctorsByDepartment[department].forEach(doctor => {
+                    const option = document.createElement('option');
+                    option.value = doctor;
+                    option.textContent = doctor;
+                    doctorSelect.appendChild(option);
+                });
+            }
+        });
+        // Appointment Booking
+        document.getElementById('appointment-form').onsubmit = function(event) {
+            event.preventDefault();
+            const department = document.getElementById('department').value;
+            const doctor = document.getElementById('doctor').value;
+            const appointmentTime = document.getElementById('appointment-time').value;
+
+            if (department && doctor && appointmentTime) {
+                alert(`Appointment booked with ${doctor} (${department}) at ${appointmentTime}`);
+            } else {
+                alert('Please fill all fields');
+            }
+        };
+    </script>
+</body>
+</html>

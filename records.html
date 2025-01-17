@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Records </title>
+    <link rel="stylesheet" href="records.css">
+</head>
+<body>
+    <section id="records">
+        <h2>Records</h2>
+        <p>Track your BMI, monitor your period, and keep test reports all in one place.</p>
+        <h3>BMI Calculator</h3>
+        <form id="bmi-form">
+            <input type="number" id="weight" placeholder="Weight (kg)" required>
+            <input type="number" id="height" placeholder="Height (cm)" required>
+            <button type="button" onclick="calculateBMI()">Calculate BMI</button>
+            <p id="bmi-result"></p>
+        </form>
+        <h3>Period Tracker</h3>
+        <form id="period-form">
+            <input type="date" id="last-period-date" placeholder="Last Period Date" required>
+            <input type="number" id="cycle-length" placeholder="Cycle Length (e.g., 28-30 days)" required>
+            <select id="cycle-regularity" required>
+            <option value="">Cycle Regularity</option>
+            <option value="Regular">Regular</option>
+            <option value="Irregular">Irregular</option>
+        </select>
+        <button type="button" onclick="trackPeriod()">Track Period</button>
+        <p id="period-result"></p>
+    </form>    
+    <h3>Test Report Upload</h3>
+    <form id="test-form">
+        <input type="file" id="test-file" required>
+        <button type="submit">Upload Report</button>
+    </form>
+
+    
+    <script>
+    
+            // Handle File Upload
+            document.getElementById('test-form').onsubmit = function(event) {
+                event.preventDefault();
+                var file = document.getElementById('test-file').files[0];
+                if (file) {
+                    alert('Test Report ' + file.name + ' uploaded successfully.');
+                } else {
+                    alert('Please select a file');
+                }
+            };
+    
+      // BMI Calculator Function
+        function calculateBMI() {
+            var weight = document.getElementById('weight').value;
+            var height = document.getElementById('height').value;
+            if (weight && height) {
+                height = height / 100; // Convert height to meters
+                var bmi = weight / (height * height);
+                document.getElementById('bmi-result').innerText = 'Your BMI: ' + bmi.toFixed(2);
+            } else {
+                alert('Please enter both weight and height');
+            }
+        }
+        function trackPeriod() {
+            var lastPeriodDate = document.getElementById('last-period-date').value;
+            var cycleLength = document.getElementById('cycle-length').value;
+            var cycleRegularity = document.getElementById('cycle-regularity').value;
+        
+            if (lastPeriodDate && cycleLength && cycleRegularity) {
+                let message = `Your last period started on: ${lastPeriodDate}. Cycle Length: ${cycleLength} days.`;
+        
+                // Calculate next period date based on cycle length
+                var nextPeriodDate = new Date(lastPeriodDate);
+                nextPeriodDate.setDate(nextPeriodDate.getDate() + parseInt(cycleLength));
+        
+                let nextPeriodFormatted = nextPeriodDate.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+        
+                message += `\nYour next expected period will start on: ${nextPeriodFormatted}.`;
+        
+                if (cycleRegularity === "Irregular") {
+                    message += "\n AS YOUR CYCLE IS IRREGULAR SO PERIOD MIGHT VARY FROM EXPECTED DATE . Consider maintaining a balanced diet from are listed diet section and consulting a gynecologist by making appointment.";
+                }
+        
+                document.getElementById('period-result').innerText = message;
+            } else {
+                alert('Please fill all fields');
+            }
+        }
+    </script>
+</body>
+</html>

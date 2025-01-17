@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Reminders </title>
+    <link rel="stylesheet" href="reminders.css">
+</head>
+<body>
+    <section id="reminders">
+        <header>
+            <h2>Reminders</h2>
+            <p>Keep track of your medications, tests, appointments, and period reminders.</p>
+        </header>
+        <form id="reminder-form">
+            <input type="text" id="reminder-title" placeholder="Reminder Title" required>
+            <input type="datetime-local" id="reminder-time" required>
+            <button type="submit">Set Reminder</button>
+        </form>
+    </section>
+    <script>
+         // Reminder Setting
+         document.getElementById('reminder-form').onsubmit = function(event) {
+            event.preventDefault();
+            var reminderTitle = document.getElementById('reminder-title').value;
+            var reminderTime = document.getElementById('reminder-time').value;
+            if (reminderTitle && reminderTime) {
+                alert('Reminder set for: ' + reminderTitle + ' at ' + reminderTime);
+            } else {
+                alert('Please fill all fields');
+            }
+        };
+
+    </script>
+</body>
+</html>

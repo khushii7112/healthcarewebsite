@@ -1,0 +1,34 @@
+.enter {
+    background-color: #ffffff;
+    padding: 10px;
+    border: 2px solid #04080f; 
+    margin: 100px;
+    margin-left: 500px;
+    margin-right: 500px;
+}
+input{
+    width: 200px;
+    height: 25px;
+}
+button {
+    background-color: #ffc6d9;
+    width: 70px;
+    height: 25px;
+    text-align: center;
+    border-color: #04080f;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+button:hover{
+    background-color: #fd6296;
+}
+body{
+    background-color: #f9bfe2;
+    font-family: sans-serif;
+}

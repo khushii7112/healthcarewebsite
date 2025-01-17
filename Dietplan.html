@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Diet Plan </title>
+    <link rel="stylesheet" href="Dietplan.css">
+</head>
+<body>
+    <section id="diet-charts">
+        <h2>Diet Charts</h2>
+        <p>Personalized diet plans for various deficiencies to help you stay healthy.</p>
+        <form id="diet-form">
+            <select id="diet-type" required>
+                <option value="">Select Diet Plan</option>
+                <option value="Weight Loss">Weight Loss</option>
+                <option value="Muscle Gain">Muscle Gain</option>
+                <option value="Deficiency Plan">Deficiency Plan</option>
+            </select>
+            <button type="submit">Get Diet Plan</button>
+        </form>
+
+        <div id="diet-result"></div>
+    </section>
+    <script>
+        // Diet Plan
+        document.getElementById('diet-form').onsubmit = function(event) {
+            event.preventDefault();
+            var dietType = document.getElementById('diet-type').value;
+            const dietResult = document.getElementById('diet-result');
+            dietResult.innerHTML = '';
+
+            const dietPlans = {
+                "Weight Loss": "<ul><li>Breakfast: Oats with fruits</li><li>Lunch: Grilled chicken salad</li><li>Snack: A handful of nuts</li><li>Dinner: Steamed vegetables and quinoa</li></ul>",
+                "Muscle Gain": "<ul><li>Breakfast: Scrambled eggs and avocado toast</li><li>Lunch: Grilled salmon with sweet potato</li><li>Snack: Protein shake</li><li>Dinner: Chicken breast with brown rice and broccoli</li></ul>",
+                "Deficiency Plan": {
+                    "Iron Deficiency": "<ul><li>Breakfast: Spinach smoothie with orange juice</li><li>Lunch: Grilled beef or lentils with kale</li><li>Snack: Dried fruits like apricots</li><li>Dinner: Baked fish with sautéed spinach</li></ul>",
+                    "Calcium Deficiency": "<ul><li>Breakfast: Fortified cereal with milk</li><li>Lunch: Tofu stir-fry with broccoli</li><li>Snack: Yogurt and almonds</li><li>Dinner: Salmon with leafy greens</li></ul>",
+                    "Vitamin D Deficiency": "<ul><li>Breakfast: Fortified orange juice and eggs</li><li>Lunch: Grilled salmon and mushrooms</li><li>Snack: Cheese cubes</li><li>Dinner: Tuna salad with avocado</li></ul>",
+                    "General Deficiency": "<ul><li>Breakfast: Mixed nuts and fortified oatmeal</li><li>Lunch: Lentil soup with spinach</li><li>Snack: Fresh fruit salad</li><li>Dinner: Grilled chicken with sweet potato and greens</li></ul>"
+                }
+            };
+
+            if (dietType) {
+                if (dietType === "Deficiency Plan") {
+                    let deficiency = prompt("Enter the deficiency type (e.g., Iron, Calcium, Vitamin D):");
+                    deficiency = deficiency ? deficiency.trim() : "General Deficiency";
+                    const plan = dietPlans[dietType][deficiency + " Deficiency"] || dietPlans[dietType]["General Deficiency"];
+                    dietResult.innerHTML = `<h3>${deficiency} Deficiency Plan</h3>` + plan;
+                } else {
+                    dietResult.innerHTML = `<h3>${dietType} Diet Plan</h3>` + dietPlans[dietType];
+                }
+            } else {
+                alert('Please select a diet plan');
+            }
+        };
+    </script>
+    
+</body>
+</html>
